@@ -12,7 +12,7 @@ partial class Form1
     private DateTimePicker dtpBirthDate;
     
     private Button btnAdd;
-    private Button btnEdit; // Buton nou
+    private Button btnEdit;
     private Button btnDelete;
     private Button btnExport;
     
@@ -65,38 +65,28 @@ partial class Form1
         grpStudentInfo.SuspendLayout();
         SuspendLayout();
 
-        // 
-        // Search Controls
-        // 
+        int leftPanelWidth = 330;
+        int gridX = leftPanelWidth + 20;
+        
         lblSearch.AutoSize = true;
-        lblSearch.Location = new Point(320, 20);
+        lblSearch.Location = new Point(gridX, 20);
         lblSearch.Name = "lblSearch";
         lblSearch.Size = new Size(50, 15);
-        lblSearch.TabIndex = 5;
         lblSearch.Text = "Cauta:";
 
-        txtSearch.Location = new Point(370, 17);
+        txtSearch.Location = new Point(gridX + 50, 17);
         txtSearch.Name = "txtSearch";
         txtSearch.Size = new Size(300, 23);
-        txtSearch.TabIndex = 6;
         txtSearch.PlaceholderText = "Nume, Prenume sau Grupa...";
 
-        // 
-        // dgvStudents
-        // 
         dgvStudents.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         dgvStudents.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-        dgvStudents.Location = new Point(320, 50);
+        dgvStudents.Location = new Point(gridX, 50);
         dgvStudents.Name = "dgvStudents";
         dgvStudents.ReadOnly = true;
-        dgvStudents.RowTemplate.Height = 25;
         dgvStudents.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-        dgvStudents.Size = new Size(650, 440);
-        dgvStudents.TabIndex = 0;
+        dgvStudents.Size = new Size(620, 440);
 
-        // 
-        // grpStudentInfo
-        // 
         grpStudentInfo.Controls.Add(lblFirstName);
         grpStudentInfo.Controls.Add(txtFirstName);
         grpStudentInfo.Controls.Add(lblLastName);
@@ -111,68 +101,62 @@ partial class Form1
         grpStudentInfo.Controls.Add(txtGrades);
         grpStudentInfo.Location = new Point(12, 12);
         grpStudentInfo.Name = "grpStudentInfo";
-        grpStudentInfo.Size = new Size(290, 350);
-        grpStudentInfo.TabIndex = 1;
-        grpStudentInfo.TabStop = false;
+        grpStudentInfo.Size = new Size(leftPanelWidth, 350);
         grpStudentInfo.Text = "Informatii Student";
 
-        // Fields setup
-        int startY = 30;
-        int spacing = 50;
+        int startY = 40;
+        int spacing = 40;
+        int labelX = 10;
+        int labelWidth = 90; // Latime fixa pentru etichete (mai ingusta)
+        int inputX = 110;    // Casuta incepe dupa eticheta
+        int inputWidth = 200;
 
-        SetupControl(lblFirstName, "Prenume:", 15, startY);
-        SetupControl(txtFirstName, "", 15, startY + 20, 250);
+        // Dezactivam AutoSize pentru a forta latimea
+        lblFirstName.AutoSize = false;
+        lblLastName.AutoSize = false;
+        lblGroup.AutoSize = false;
+        lblEmail.AutoSize = false;
+        lblBirthDate.AutoSize = false;
+        lblGrades.AutoSize = false;
 
-        SetupControl(lblLastName, "Nume:", 15, startY + spacing);
-        SetupControl(txtLastName, "", 15, startY + spacing + 20, 250);
+        SetupControl(lblFirstName, "Prenume:", labelX, startY + 3, labelWidth);
+        SetupControl(txtFirstName, "", inputX, startY, inputWidth);
 
-        SetupControl(lblGroup, "Grupa:", 15, startY + spacing * 2);
-        SetupControl(txtGroup, "", 15, startY + spacing * 2 + 20, 250);
+        SetupControl(lblLastName, "Nume:", labelX, startY + spacing + 3, labelWidth);
+        SetupControl(txtLastName, "", inputX, startY + spacing, inputWidth);
 
-        SetupControl(lblEmail, "Email:", 15, startY + spacing * 3);
-        SetupControl(txtEmail, "", 15, startY + spacing * 3 + 20, 250);
+        SetupControl(lblGroup, "Grupa:", labelX, startY + spacing * 2 + 3, labelWidth);
+        SetupControl(txtGroup, "", inputX, startY + spacing * 2, inputWidth);
 
-        SetupControl(lblBirthDate, "Data Nasterii:", 15, startY + spacing * 4);
-        dtpBirthDate.Location = new Point(15, startY + spacing * 4 + 20);
-        dtpBirthDate.Size = new Size(250, 23);
+        SetupControl(lblEmail, "Email:", labelX, startY + spacing * 3 + 3, labelWidth);
+        SetupControl(txtEmail, "", inputX, startY + spacing * 3, inputWidth);
 
-        SetupControl(lblGrades, "Note (separate prin virgula):", 15, startY + spacing * 5);
-        SetupControl(txtGrades, "", 15, startY + spacing * 5 + 20, 250);
+        SetupControl(lblBirthDate, "Data Nasterii:", labelX, startY + spacing * 4 + 3, labelWidth);
+        dtpBirthDate.Location = new Point(inputX, startY + spacing * 4);
+        dtpBirthDate.Size = new Size(inputWidth, 23);
 
-        // Buttons
-        // Buton Adauga
+        SetupControl(lblGrades, "Note:", labelX, startY + spacing * 5 + 3, labelWidth);
+        SetupControl(txtGrades, "", inputX, startY + spacing * 5, inputWidth);
+        txtGrades.PlaceholderText = "ex: 10, 8.5, 9";
+
+        int btnWidth = (leftPanelWidth - 30) / 2;
+        
         btnAdd.Location = new Point(12, 370);
-        btnAdd.Name = "btnAdd";
-        btnAdd.Size = new Size(140, 35);
-        btnAdd.TabIndex = 2;
-        btnAdd.Text = "Adauga Student";
-        btnAdd.UseVisualStyleBackColor = true;
+        btnAdd.Size = new Size(btnWidth, 35);
+        btnAdd.Text = "Adauga";
 
-        // Buton Modifica (Nou)
-        btnEdit.Location = new Point(162, 370);
-        btnEdit.Name = "btnEdit";
-        btnEdit.Size = new Size(140, 35);
-        btnEdit.TabIndex = 3;
+        btnEdit.Location = new Point(12 + btnWidth + 6, 370);
+        btnEdit.Size = new Size(btnWidth, 35);
         btnEdit.Text = "Modifica";
-        btnEdit.UseVisualStyleBackColor = true;
 
-        // Buton Sterge
         btnDelete.Location = new Point(12, 415);
-        btnDelete.Name = "btnDelete";
-        btnDelete.Size = new Size(290, 35);
-        btnDelete.TabIndex = 4;
+        btnDelete.Size = new Size(leftPanelWidth, 35);
         btnDelete.Text = "Sterge Selectie";
-        btnDelete.UseVisualStyleBackColor = true;
 
-        // Buton Export
         btnExport.Location = new Point(12, 460);
-        btnExport.Name = "btnExport";
-        btnExport.Size = new Size(290, 35);
-        btnExport.TabIndex = 5;
+        btnExport.Size = new Size(leftPanelWidth, 35);
         btnExport.Text = "Exporta CSV (Raport)";
-        btnExport.UseVisualStyleBackColor = true;
 
-        // Form1
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(984, 511);

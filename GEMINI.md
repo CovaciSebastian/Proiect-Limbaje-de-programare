@@ -44,3 +44,6 @@ The solution (`StudentManager.sln`) consists of two projects:
 ### Coding Style
 *   Use standard C# naming conventions (PascalCase for classes/methods, camelCase for local variables).
 *   `Nullable` is enabled in both projects, so handle potential null references appropriately.
+ dotnet run --project StudentManager.UI
+ colectii List<Student>
+  librarie folderul StudentManager.Core
